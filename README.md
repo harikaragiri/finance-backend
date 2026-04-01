@@ -1,114 +1,134 @@
-# 💰 Finance Data Processing and Access Control Backend
+# Finance Data Processing and Access Control Backend
 
-## 🚀 Objective
+## Objective
 
-This project is developed as part of a Backend Developer Internship assignment to demonstrate backend development skills including API design, data modeling, business logic, and role-based access control.
-
----
-
-## 🧠 Overview
-
-This backend system simulates a **finance dashboard** where users can manage financial records based on their roles.
-
-It ensures:
-
-* Secure authentication
-* Role-based permissions
-* Efficient financial data handling
-* Dashboard analytics using aggregation
+This project is developed as part of a Backend Developer Internship assignment. The goal is to demonstrate backend development skills such as API design, data modeling, business logic, and role-based access control.
 
 ---
 
-## 🛠 Tech Stack
+## Overview
 
-* Node.js
-* Express.js
-* MongoDB
-* Mongoose
-* JWT Authentication
-* Thunder Client (Testing)
+This backend system represents a finance dashboard where users can manage financial records based on their roles.
+
+The system focuses on secure authentication, role-based permissions, proper handling of financial data, and providing summary analytics for a dashboard.
 
 ---
 
-## 👥 Roles & Permissions
+## Tech Stack
 
-| Role    | Access                        |
-| ------- | ----------------------------- |
-| Viewer  | View records only             |
-| Analyst | View + analytics              |
-| Admin   | Full access (CRUD operations) |
-
----
-
-## 🔐 Access Control
-
-* Only **Admin** can create/update/delete records
-* **Analyst & Admin** can view analytics
-* **Viewer** has read-only access
-
-Implemented using:
-
-* JWT Authentication Middleware
-* Role-based Middleware
+- Node.js  
+- Express.js  
+- MongoDB  
+- Mongoose  
+- JWT Authentication  
+- Thunder Client (for API testing)
 
 ---
 
-## 📦 Features
+## Implementation
 
-### ✅ User Management
+The project is structured using a modular backend architecture to ensure clarity and maintainability.
 
-* Register user
-* Login with JWT
-* Role assignment
-* Active/Inactive status
+- **Controllers** handle request and response logic  
+- **Models** define database schemas using Mongoose  
+- **Routes** define API endpoints and connect them to controllers  
+- **Middleware** is used for authentication and role-based access control  
+- **Utils** contains reusable helper functions like async error handling  
 
-### ✅ Financial Records
+### Authentication
 
-* Create records
-* View records
-* Update records
-* Delete records
-* Filter by type, category, date
+- JWT (JSON Web Token) is used for secure authentication  
+- On login, a token is generated and sent to the client  
+- Protected routes require the token in the Authorization header  
 
-### ✅ Dashboard APIs
+### Role-Based Access Control
 
-* Total income
-* Total expense
-* Net balance
-* Category-wise summary
-* Recent transactions
+- Roles include Viewer, Analyst, and Admin  
+- Middleware checks user role before allowing access  
+- Different endpoints are restricted based on roles  
 
----
+### Data Handling
 
-## 📊 API Endpoints
-
-### 🔑 Auth APIs
-
-POST /api/users/register
-POST /api/users/login
-
-### 👤 User API
-
-GET /api/users/me
-
-### 📁 Records APIs
-
-GET /api/records
-POST /api/records
-PUT /api/records/:id
-DELETE /api/records/:id
-
-### 📈 Analytics APIs
-
-GET /api/records/summary
-GET /api/records/category-summary
-GET /api/records/recent
+- Each financial record is linked to a specific user  
+- MongoDB aggregation is used for calculating summary data  
+- Filtering and pagination are implemented for better performance  
 
 ---
 
-## 🧪 Sample API Responses
+## Roles and Permissions
 
-### 🔐 Login
+- Viewer: Can only view records  
+- Analyst: Can view records and access analytics  
+- Admin: Can create, update, delete records and manage users  
+
+---
+
+## Access Control
+
+- Only Admin can create, update, or delete records  
+- Analyst and Admin can access analytics APIs  
+- Viewer has read-only access  
+
+Access control is implemented using JWT authentication and role-based middleware.
+
+---
+
+## Features
+
+### User Management
+
+- User registration  
+- User login with JWT  
+- Role assignment  
+- Active and inactive user status  
+
+### Financial Records
+
+- Create records  
+- View records  
+- Update records  
+- Delete records  
+- Filter by type, category, and date  
+
+### Dashboard APIs
+
+- Total income  
+- Total expenses  
+- Net balance  
+- Category-wise summary  
+- Recent transactions  
+
+---
+
+## API Endpoints
+
+### Auth APIs
+
+POST /api/users/register  
+POST /api/users/login  
+
+### User API
+
+GET /api/users/me  
+
+### Records APIs
+
+GET /api/records  
+POST /api/records  
+PUT /api/records/:id  
+DELETE /api/records/:id  
+
+### Analytics APIs
+
+GET /api/records/summary  
+GET /api/records/category-summary  
+GET /api/records/recent  
+
+---
+
+## Sample API Responses
+
+### Login
 
 ```json
 {
@@ -116,7 +136,7 @@ GET /api/records/recent
 }
 ```
 
-### 📊 Summary
+### Summary
 
 ```json
 {
@@ -126,7 +146,7 @@ GET /api/records/recent
 }
 ```
 
-### 📂 Category Summary
+### Category Summary
 
 ```json
 [
@@ -140,9 +160,9 @@ GET /api/records/recent
 
 ---
 
-## ⚠️ Validation Example
+## Validation Example
 
-If user already exists:
+If a user already exists:
 
 ```json
 {
@@ -152,86 +172,79 @@ If user already exists:
 
 ---
 
-## 📸 API Screenshots
-## 📸 API Screenshots
+## API Screenshots
 
-### 🔐 Login API
+### Login API  
 ![Login API](./images/login-api.png.jpeg)
 
-### 📊 Summary API
+### Summary API  
 ![Summary API](./images/summary-api.png)
 
-### 📂 Category Summary API
+### Category Summary API  
 ![Category Summary API](./images/categorysummary-api.png)
 
-### 📜 Records API
+### Records API  
 ![Records API](./images/records-api.png)
 
-### 🕒 Recent Records API
+### Recent Records API  
 ![Recent Records API](./images/recentrecords-api.png)
----
-
-## ⚙️ Setup Instructions
-
-1. Clone repository
-   git clone https://github.com/harikaragiri/finance-backend.git
-
-2. Install dependencies
-   npm install
-
-3. Create `.env` file
-   PORT=5000
-   MONGO_URI=your_mongodb_uri
-   JWT_SECRET=your_secret
-
-4. Run server
-   npm run dev
 
 ---
 
-## 🧾 Assumptions
+## Setup Instructions
 
-* Each record belongs to one user
-* Only Admin can modify records
-* JWT used for authentication
-* Pagination limit = 10
+1. Clone the repository  
+   git clone https://github.com/harikaragiri/finance-backend.git  
 
----
+2. Install dependencies  
+   npm install  
 
-## ⚡ Enhancements
+3. Create a `.env` file and add:  
+   PORT=5000  
+   MONGO_URI=your_mongodb_uri  
+   JWT_SECRET=your_secret  
 
-* Pagination
-* Filtering
-* MongoDB Aggregation
-* Indexed fields for performance
-* Clean project structure
-
----
-
-## 🏗 Project Structure
-
-src/
-├── controllers/
-├── models/
-├── routes/
-├── middleware/
-├── utils/
+4. Run the server  
+   npm run dev  
 
 ---
 
-## 👩‍💻 Author
+## Assumptions
 
-Harika Ragiri
+- Each record belongs to one user  
+- Only Admin can modify records  
+- JWT is used for authentication  
+- Pagination limit is set to 10  
 
 ---
 
-## 🎯 Conclusion
+## Enhancements
 
-This project demonstrates:
+- Pagination  
+- Filtering  
+- MongoDB aggregation  
+- Indexed fields for better performance  
+- Clean and structured project design  
 
-* Backend architecture design
-* Role-Based Access Control (RBAC)
-* Secure authentication
-* Efficient data processing
+---
 
-The focus was on clarity, maintainability, and real-world backend practices.
+## Project Structure
+
+src/  
+controllers/  
+models/  
+routes/  
+middleware/  
+utils/  
+
+---
+
+## Author
+
+Harika Ragiri  
+
+---
+
+## Conclusion
+
+This project demonstrates backend design, role-based access control, authentication, and data handling. The focus is on building a clean and maintainable backend system that follows real-world practices.
