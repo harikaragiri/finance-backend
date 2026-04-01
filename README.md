@@ -239,12 +239,6 @@ utils/
 
 ---
 
-## Author
-
-Harika Ragiri  
-
----
-
 ## Conclusion
 
 This project demonstrates backend design, role-based access control, authentication, and data handling. The focus is on building a clean and maintainable backend system that follows real-world practices.
