@@ -217,8 +217,7 @@ The API uses centralized error handling middleware:
 {
   "message": "Error message here"
 }
-####Security Features
-
+Security Features
 JWT Authentication
 Role-Based Access Control (RBAC)
 Data Isolation (each record belongs to a user)
@@ -243,8 +242,7 @@ MongoDB indexing on user + date fields
 Pagination (10 records per page)
 Aggregation pipelines for analytics
 Efficient filtering system
----
-###Project Structure
+Project Structure
 
 src/
 ├── controllers/
@@ -253,8 +251,8 @@ src/
 ├── middleware/
 ├── utils/
 server.js
----
-###Setup Instructions
+
+Setup Instructions
 1. Clone Repository
 
 git clone https://github.com/your-username/finance-backend.git
@@ -272,8 +270,8 @@ JWT_SECRET=your_secret
 4. Run Server
 
 npm start
----
-###Assumptions
+
+Assumptions
 Each record belongs to one user
 Admin has full control over system
 JWT required for protected routes
