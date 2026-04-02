@@ -17,14 +17,14 @@ const userSchema = new mongoose.Schema({
         select: false
     },
 
-    //ROLE BASED ACCESS CONTROL (already correct, just kept as-is)
+    //ROLE BASED ACCESS CONTROL
     role: {
         type: String,
         enum: ["viewer", "analyst", "admin"],
         default: "viewer"
     },
 
-    //STATUS (good for future enhancement like blocking users)
+    //STATUS 
     status: {
         type: String,
         enum: ["active", "inactive"],

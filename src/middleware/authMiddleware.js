@@ -18,7 +18,7 @@ exports.verifyToken = (req, res, next) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        // SAFETY CHECK (important improvement)
+        
         if (!decoded || !decoded.role) {
             return res.status(401).json({ message: "Invalid token payload" });
         }

@@ -17,10 +17,10 @@ mongoose.connect(process.env.MONGO_URI)
 
 // ROUTES
 const recordRoutes = require("./src/routes/recordRoutes");
-const userRoutes = require("./src/routes/userRoutes"); // ✅ ADD THIS
+const userRoutes = require("./src/routes/userRoutes"); 
 
 app.use("/api/records", recordRoutes);
-app.use("/api/users", userRoutes); // ✅ ADD THIS
+app.use("/api/users", userRoutes); 
 
 // TEST ROUTE
 app.get("/", (req, res) => {

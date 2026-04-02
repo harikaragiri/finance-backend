@@ -22,7 +22,7 @@ router.get("/summary", verifyToken, checkRole("analyst", "admin"), getSummary);
 router.get("/category-summary", verifyToken, checkRole("analyst", "admin"), getCategorySummary);
 router.get("/dashboard", verifyToken, getDashboard);
 
-// CREATE (with validation)
+
 router.post(
     "/",
     verifyToken,
@@ -47,7 +47,7 @@ router.post(
     createRecord
 );
 
-// UPDATE & DELETE
+
 router.put("/:id", verifyToken, checkRole("admin"), updateRecord);
 router.delete("/:id", verifyToken, checkRole("admin"), deleteRecord);
 
