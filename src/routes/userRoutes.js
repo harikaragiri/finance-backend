@@ -6,7 +6,8 @@ const {
     loginUser,
     getMe,
     updateUserRole,
-    updateUserStatus
+    updateUserStatus,
+    updateMyProfile
 } = require("../controllers/userController");
 
 const { verifyToken, checkRole } = require("../middleware/authMiddleware");
@@ -18,5 +19,6 @@ router.get("/me", verifyToken, getMe);
 
 router.patch("/:id/role", verifyToken, checkRole("admin"), updateUserRole);
 router.patch("/:id/status", verifyToken, checkRole("admin"), updateUserStatus);
+router.patch("/me", verifyToken, updateMyProfile);
 
 module.exports = router;

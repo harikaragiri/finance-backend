@@ -1,9 +1,13 @@
 const jwt = require("jsonwebtoken");
 
+//VERIFY TOKEN MIDDLEWARE
 exports.verifyToken = (req, res, next) => {
     let token;
 
-    if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
+    if (
+        req.headers.authorization &&
+        req.headers.authorization.startsWith("Bearer")
+    ) {
         token = req.headers.authorization.split(" ")[1];
     }
 
@@ -13,18 +17,30 @@ exports.verifyToken = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        // SAFETY CHECK (important improvement)
+        if (!decoded || !decoded.role) {
+            return res.status(401).json({ message: "Invalid token payload" });
+        }
+
         req.user = decoded;
         next();
     } catch (err) {
-        res.status(401).json({ message: "Invalid token" });
+        return res.status(401).json({ message: "Invalid token" });
     }
 };
 
+// ROLE CHECK MIDDLEWARE (RBAC)
 exports.checkRole = (...roles) => {
     return (req, res, next) => {
+        if (!req.user || !req.user.role) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+
         if (!roles.includes(req.user.role)) {
             return res.status(403).json({ message: "Access denied" });
         }
+
         next();
     };
 };

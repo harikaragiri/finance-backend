@@ -17,10 +17,15 @@ exports.registerUser = catchAsync(async (req, res) => {
         name,
         email,
         password: hashed,
-        role
+
+        // SECURITY FIX: only admin can assign roles
+        role: role && role === "admin" ? "admin" : "viewer"
     });
 
-    res.status(201).json(user);
+    res.status(201).json({
+        message: "User registered successfully",
+        user
+    });
 });
 
 exports.loginUser = catchAsync(async (req, res) => {
@@ -44,7 +49,15 @@ exports.loginUser = catchAsync(async (req, res) => {
         { expiresIn: "1d" }
     );
 
-    res.json({ token });
+   res.json({
+    token,
+    user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+    }
+});
 });
 
 exports.getMe = catchAsync(async (req, res) => {
@@ -69,3 +82,22 @@ exports.updateUserStatus = catchAsync(async (req, res) => {
     );
     res.json(user);
 });
+
+exports.updateMyProfile = async (req, res) => {
+    const allowedFields = ["name", "email"];
+
+    const updates = {};
+    allowedFields.forEach((field) => {
+        if (req.body[field]) {
+            updates[field] = req.body[field];
+        }
+    });
+
+    const user = await User.findByIdAndUpdate(
+        req.user.id,
+        updates,
+        { new: true }
+    ).select("-password");
+
+    res.json(user);
+};

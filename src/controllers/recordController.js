@@ -27,11 +27,16 @@ exports.getRecords = catchAsync(async (req, res) => {
 });
 
 exports.deleteRecord = catchAsync(async (req, res) => {
-    await Record.findOneAndDelete({
+    const deleted = await Record.findOneAndDelete({
         _id: req.params.id,
         user: req.user.id
     });
-    res.json({ message: "Deleted" });
+
+    if (!deleted) {
+        return res.status(404).json({ message: "Record not found" });
+    }
+
+    res.json({ message: "Deleted successfully" });
 });
 
 exports.updateRecord = catchAsync(async (req, res) => {
@@ -40,6 +45,11 @@ exports.updateRecord = catchAsync(async (req, res) => {
         req.body,
         { new: true }
     );
+
+    if (!record) {
+        return res.status(404).json({ message: "Record not found" });
+    }
+
     res.json(record);
 });
 
@@ -91,4 +101,48 @@ exports.getCategorySummary = catchAsync(async (req, res) => {
     ]);
 
     res.json(data);
+});
+exports.getDashboard = catchAsync(async (req, res) => {
+    const summary = await Record.aggregate([
+        { $match: { user: new mongoose.Types.ObjectId(req.user.id) } },
+        {
+            $group: {
+                _id: null,
+                totalIncome: {
+                    $sum: { $cond: [{ $eq: ["$type", "income"] }, "$amount", 0] }
+                },
+                totalExpense: {
+                    $sum: { $cond: [{ $eq: ["$type", "expense"] }, "$amount", 0] }
+                }
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                totalIncome: 1,
+                totalExpense: 1,
+                balance: { $subtract: ["$totalIncome", "$totalExpense"] }
+            }
+        }
+    ]);
+
+    const category = await Record.aggregate([
+        { $match: { user: new mongoose.Types.ObjectId(req.user.id) } },
+        {
+            $group: {
+                _id: "$category",
+                total: { $sum: "$amount" }
+            }
+        }
+    ]);
+
+    const recent = await Record.find({ user: req.user.id })
+        .sort({ createdAt: -1 })
+        .limit(5);
+
+    res.json({
+        summary: summary[0] || {},
+        category,
+        recent
+    });
 });
