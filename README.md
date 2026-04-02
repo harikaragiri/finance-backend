@@ -123,15 +123,11 @@ GET /api/records/dashboard
 ## Sample API Response
 
 ### Login Response
-```json
+JSON
 {
-  "token": "JWT_TOKEN",
-  "user": {
-    "id": "123",
-    "name": "John",
-    "email": "john@example.com",
-    "role": "admin"
-  }
+  "totalIncome": 20000,
+  "totalExpense": 5000,
+  "balance": 15000
 }
 
 Summary Response
@@ -141,28 +137,67 @@ Summary Response
   "balance": 15000
 }
 
-Validation Rules
+### Validation Rules
 Amount must be numeric and greater than 0
 Type must be income or expense
 Category is required
 Invalid input returns validation errors
-Security Features
+
+### Security Features
 JWT Authentication
 Role-Based Access Control
 Input Validation
 Data Isolation per user
 Protected Routes
-Database Design
-User Schema
+
+### Database Design
+#### User Schema
 name
 email
 password (hashed)
 role (viewer / analyst / admin)
 status (active / inactive)
-Record Schema
+#### Record Schema
 amount
 type
 category
 date
 note
 user (reference)
+
+### Project Structure
+src/
+├── controllers/
+├── models/
+├── routes/
+├── middleware/
+├── utils/
+server.js
+
+### Setup Instructions
+1. Clone Repository
+git clone https://github.com/your-username/finance-backend.git
+2. Install Dependencies
+npm install
+3. Create .env file
+PORT=5000
+MONGO_URI=your_mongodb_uri
+JWT_SECRET=your_secret
+4. Run Server
+npm start
+
+### Performance Optimizations
+MongoDB indexing (user + date)
+Pagination (10 records per page)
+Aggregation pipelines for analytics
+Efficient filtering system
+
+### Assumptions
+Each record belongs to one user
+Admin has full access
+JWT required for all protected routes
+Default pagination is 10
+
+### Conclusion
+
+This project demonstrates a production-level backend system with authentication, authorization, data modeling, and analytics. It follows clean MVC architecture and real-world backend practices
