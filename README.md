@@ -309,8 +309,3 @@ npm start
 
 This project demonstrates a production-level backend system with secure authentication, role-based authorization, and analytics capabilities.
 
-- It follows industry-standard backend practices including:
-1. Modular architecture
-2. Secure API design
-3. Efficient database queries
-4. Scalable structure
