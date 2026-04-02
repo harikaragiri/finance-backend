@@ -184,8 +184,8 @@ json
   "token": "JWT_TOKEN",
   "user": {
     "id": "123",
-    "name": "John",
-    "email": "john@example.com",
+    "name": "harika",
+    "email": "harika@example.com",
     "role": "admin"
   }
 }
@@ -205,31 +205,6 @@ json
     "count": 4
   }
 ]
-
-
-##  Login API
-![Login API](./images/login-api.png)
-
----
-
-##  Summary API
-![Summary API](./images/summary-api.png)
-
----
-
-## Records API
-![Records API](./images/records-api.png)
-
----
-
-## Category Summary API
-![Category Summary API](./images/categorysummary-api.png)
-
----
-
-## Recent Records API
-![Recent Records API](./images/recentrecords-api.png)
-
 
 ---
 
@@ -308,7 +283,7 @@ server.js
 
 **Setup Instructions**
 1. Clone Repository
-git clone https://github.com/your-username/finance-backend.git
+git clone https://github.com/harikaragiri/finance-backend
 2. Install Dependencies
 npm install
 3. Create .env file
