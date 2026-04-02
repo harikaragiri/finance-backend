@@ -93,29 +93,29 @@ The project follows MVC architecture:
 ## API Endpoints
 
 ### Auth Routes
-POST /api/users/register
-POST /api/users/login
+- POST /api/users/register
+- POST /api/users/login
 
 
 ### User Routes
-GET /api/users/me
-PATCH /api/users/:id/role
-PATCH /api/users/:id/status
-PATCH /api/users/me
+- GET /api/users/me
+- PATCH /api/users/:id/role
+-PATCH /api/users/:id/status
+- PATCH /api/users/me
 
 
 ### Record Routes
-GET /api/records
-POST /api/records
-PUT /api/records/:id
-DELETE /api/records/:id
+- GET /api/records
+- POST /api/records
+- PUT /api/records/:id
+- DELETE /api/records/:id
 
 
 ### Analytics Routes
-GET /api/records/summary
-GET /api/records/category-summary
-GET /api/records/recent
-GET /api/records/dashboard
+- GET /api/records/summary
+- GET /api/records/category-summary
+- GET /api/records/recent
+- GET /api/records/dashboard
 
 
 ---
@@ -123,14 +123,14 @@ GET /api/records/dashboard
 ## Sample API Response
 
 ### Login Response
-JSON
+- JSON
 {
   "totalIncome": 20000,
   "totalExpense": 5000,
   "balance": 15000
 }
 
-Summary Response
+- Summary Response
 {
   "totalIncome": 20000,
   "totalExpense": 5000,
@@ -138,33 +138,42 @@ Summary Response
 }
 
 ### Validation Rules
-Amount must be numeric and greater than 0
-Type must be income or expense
-Category is required
-Invalid input returns validation errors
+- Amount must be numeric and greater than 0
+- Type must be income or expense
+- Category is required
+- Invalid input returns validation errors
 
 ### Security Features
-JWT Authentication
-Role-Based Access Control
-Input Validation
-Data Isolation per user
-Protected Routes
+
+1. JWT Authentication
+2. Role-Based Access Control
+3. Input Validation
+4. Data Isolation per user
+5. Protected Routes
+
+
 ---
+
+
 ## Database Design
-### User Schema
-name
-email
-password (hashed)
-role (viewer / analyst / admin)
-status (active / inactive)
-### Record Schema
-amount
-type
-category
-date
-note
-user (reference)
+**User Schema**
+- name
+- email
+- password (hashed)
+- role (viewer / analyst / admin)
+- status (active / inactive)
+**Record Schema**
+- amount
+- type
+- category
+- date
+- note
+- user (reference)
+
+
 ---
+
+
 ### Project Structure
 src/
 ├── controllers/
@@ -174,7 +183,7 @@ src/
 ├── utils/
 server.js
 
-### Setup Instructions
+**Setup Instructions**
 1. Clone Repository
 git clone https://github.com/your-username/finance-backend.git
 2. Install Dependencies
@@ -186,17 +195,23 @@ JWT_SECRET=your_secret
 4. Run Server
 npm start
 
+---
+
 ### Performance Optimizations
-MongoDB indexing (user + date)
-Pagination (10 records per page)
-Aggregation pipelines for analytics
-Efficient filtering system
+1. MongoDB indexing (user + date)
+2. Pagination (10 records per page)
+3. Aggregation pipelines for analytics
+4. Efficient filtering system
+
+---
 
 ### Assumptions
-Each record belongs to one user
-Admin has full access
-JWT required for all protected routes
-Default pagination is 10
+- Each record belongs to one user
+- Admin has full access
+- JWT required for all protected routes
+- Default pagination is 10
+
+---
 
 ### Conclusion
 
