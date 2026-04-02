@@ -1,20 +1,50 @@
-# Finance Data Processing and Access Control Backend
+## Finance Data Processing and Access Control Backend
+
+---
 
 ## Objective
 
-This project is developed as part of a Backend Developer Internship assignment. The goal is to demonstrate backend development skills such as API design, data modeling, business logic, authentication, authorization, and role-based access control.
+This project is developed as part of a Backend Developer Internship assignment. The main objective is to design and implement a secure, scalable backend system for financial data management with authentication, authorization, and analytics.
 
 ---
 
 ## Overview
 
-This backend system is a finance management API where users can track income and expenses based on roles.
+This backend system is a **Finance Management API** where users can manage income and expense records based on their roles.
 
-It focuses on:
+It provides:
 - Secure authentication using JWT
-- Role-based access control (RBAC)
-- Financial record management
-- Analytics and dashboard APIs
+- Role-Based Access Control (RBAC)
+- Financial record tracking
+- Advanced analytics dashboard
+- RESTful API architecture
+
+---
+
+## Project Screenshots
+
+### Login API
+![Login API](./images/login-api.png)
+
+---
+
+### Summary API
+![Summary API](./images/summary-api.png)
+
+---
+
+### Records API
+![Records API](./images/records-api.png)
+
+---
+
+###  Category Summary API
+![Category Summary API](./images/categorysummary-api.png)
+
+---
+
+### Recent Records API
+![Recent Records API](./images/recentrecords-api.png)
 
 ---
 
@@ -26,92 +56,118 @@ It focuses on:
 - Mongoose
 - JWT Authentication
 - Express Validator
+- REST API Architecture
 
 ---
 
-## Project Architecture
+## System Architecture
 
-The project follows MVC architecture:
+The project follows **MVC Architecture**:
 
-- Controllers → Business logic
-- Models → Database schema
-- Routes → API endpoints
-- Middleware → Authentication & Authorization
-- Utils → Helper functions
-
----
-
-## Features
-
-### User Features
-- Register user
-- Login user
-- Get profile (/me)
-- Update profile
-
-### Admin Features
-- Manage users
-- Update user roles
-- Update user status
-- Full access to records
-
-### Financial Records
-- Create income/expense records
-- Update records
-- Delete records
-- View records with pagination
-- Filter by type/category
-
-### Analytics
-- Total income
-- Total expense
-- Net balance
-- Category-wise summary
-- Recent transactions
-- Dashboard API
+- **Models** → Database schema design using Mongoose
+- **Controllers** → Business logic implementation
+- **Routes** → API endpoints definition
+- **Middleware** → Authentication & Role verification
+- **Utils** → Helper functions and reusable logic
 
 ---
 
-## Authentication Flow
+## Authentication Implementation
 
-- User registers with details
-- Password is hashed using bcrypt
-- JWT token generated on login
-- Token required for all protected routes
-- Middleware verifies token
+### Flow:
+1. User registers with name, email, password
+2. Password is hashed using bcrypt
+3. On login, JWT token is generated
+4. Token is required for all protected routes
+5. Middleware verifies token before access
+
+### Key Features:
+- Secure password storage
+- Token-based authentication
+- Protected route handling
+- Session-less backend design
 
 ---
 
-## Role-Based Access Control (RBAC)
+##  Role-Based Access Control (RBAC)
 
-- **Viewer** → Read-only access
-- **Analyst** → Read + analytics access
-- **Admin** → Full access (CRUD + user management)
+### Roles:
+
+- **Viewer**
+  - Can only view data
+
+- **Analyst**
+  - Can view + analytics access
+
+- **Admin**
+  - Full access (Create, Update, Delete, Manage users)
+
+### Security Rule:
+Every API checks:
+- Token validity
+- User role permission
+
+---
+
+## Financial Record System
+
+### Features:
+
+- Add income and expense records
+- Update financial entries
+- Delete records (Admin only)
+- View paginated records
+- Filter by category and type
+- Each record belongs to a user
+
+### Business Logic:
+
+- Income increases balance
+- Expense decreases balance
+- User isolation ensures data privacy
+
+---
+
+## Analytics System
+
+Implemented using **MongoDB Aggregation Pipeline**
+
+### Features:
+
+- Total Income calculation
+- Total Expense calculation
+- Net Balance computation
+- Category-wise grouping
+- Recent transactions API
+- Dashboard summary API
 
 ---
 
 ## API Endpoints
 
-### Auth Routes
+**Authentication APIs**
+
 - POST /api/users/register
 - POST /api/users/login
 
 
-### User Routes
+**User APIs**
+
 - GET /api/users/me
 - PATCH /api/users/:id/role
--PATCH /api/users/:id/status
+- PATCH /api/users/:id/status
 - PATCH /api/users/me
 
+**Record APIs**
 
-### Record Routes
 - GET /api/records
 - POST /api/records
 - PUT /api/records/:id
 - DELETE /api/records/:id
 
 
-### Analytics Routes
+**Analytics APIs**
+
 - GET /api/records/summary
 - GET /api/records/category-summary
 - GET /api/records/recent
@@ -120,48 +176,88 @@ The project follows MVC architecture:
 
 ---
 
-## Sample API Response
+## Sample API Responses
 
-### Login Response
-- JSON
+**Login Response**
+json
+{
+  "token": "JWT_TOKEN",
+  "user": {
+    "id": "123",
+    "name": "John",
+    "email": "john@example.com",
+    "role": "admin"
+  }
+}
+
+**Summary Response**
 {
   "totalIncome": 20000,
   "totalExpense": 5000,
   "balance": 15000
 }
 
-- Summary Response
-{
-  "totalIncome": 20000,
-  "totalExpense": 5000,
-  "balance": 15000
-}
+**Category Summary Response**
+[
+  {
+    "_id": "salary",
+    "total": 20000,
+    "count": 4
+  }
+]
 
-### Validation Rules
-- Amount must be numeric and greater than 0
-- Type must be income or expense
-- Category is required
-- Invalid input returns validation errors
 
-### Security Features
+##  Login API
+![Login API](./images/login-api.png)
 
-1. JWT Authentication
-2. Role-Based Access Control
-3. Input Validation
-4. Data Isolation per user
-5. Protected Routes
+---
+
+##  Summary API
+![Summary API](./images/summary-api.png)
+
+---
+
+## Records API
+![Records API](./images/records-api.png)
+
+---
+
+## Category Summary API
+![Category Summary API](./images/categorysummary-api.png)
+
+---
+
+## Recent Records API
+![Recent Records API](./images/recentrecords-api.png)
 
 
 ---
 
+## Validation Rules
+1. Amount must be numeric and greater than 0
+2. Type must be income or expense
+3. Category is required
+4. Invalid input returns validation errors
 
-## Database Design
+---
+
+## Security Features
+- JWT Authentication
+- Role-Based Access Control
+- Input Validation using express-validator
+- Data Isolation per user
+- Protected API Routes
+
+---
+
+### Database Design
 **User Schema**
 - name
 - email
 - password (hashed)
 - role (viewer / analyst / admin)
 - status (active / inactive)
+
 **Record Schema**
 - amount
 - type
@@ -170,9 +266,36 @@ The project follows MVC architecture:
 - note
 - user (reference)
 
-
 ---
 
+### Implementation Details (Important)
+**Backend Design**
+- Built using Express.js framework
+- RESTful API design principles followed
+- Modular folder structure for scalability
+
+**Security Implementation**
+- Password hashing using bcrypt
+- JWT token-based authentication
+- Middleware-based route protection
+
+**Data Handling**
+- MongoDB used for flexible schema design
+- Aggregation pipeline for analytics
+- Pagination implemented for performance
+
+**Performance Optimization**
+- Indexed MongoDB fields (user, date)
+- Reduced query load using filtering
+- Efficient aggregation for dashboard
+
+**Code Quality**
+- Clean MVC architecture
+- Reusable middleware functions
+- Error handling centralized
+
+
+---
 
 ### Project Structure
 src/
@@ -191,28 +314,28 @@ npm install
 3. Create .env file
 PORT=5000
 MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_secret
+JWT_SECRET=your_secret_key
 4. Run Server
 npm start
 
----
-
-### Performance Optimizations
-1. MongoDB indexing (user + date)
-2. Pagination (10 records per page)
-3. Aggregation pipelines for analytics
-4. Efficient filtering system
 
 ---
 
 ### Assumptions
-- Each record belongs to one user
-- Admin has full access
+- Each financial record belongs to one user
+- Admin has full system access
 - JWT required for all protected routes
-- Default pagination is 10
+- Default pagination limit is 10 records
 
 ---
 
+
 ### Conclusion
 
-This project demonstrates a production-level backend system with authentication, authorization, data modeling, and analytics. It follows clean MVC architecture and real-world backend practices
+This project demonstrates a production-level backend system with secure authentication, role-based authorization, and analytics capabilities.
+
+- It follows industry-standard backend practices including:
+1. Modular architecture
+2. Secure API design
+3. Efficient database queries
+4. Scalable structure
