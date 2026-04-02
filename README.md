@@ -149,22 +149,22 @@ Role-Based Access Control
 Input Validation
 Data Isolation per user
 Protected Routes
-
-### Database Design
-#### User Schema
+---
+## Database Design
+### User Schema
 name
 email
 password (hashed)
 role (viewer / analyst / admin)
 status (active / inactive)
-#### Record Schema
+### Record Schema
 amount
 type
 category
 date
 note
 user (reference)
-
+---
 ### Project Structure
 src/
 ├── controllers/
